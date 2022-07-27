@@ -24,10 +24,11 @@ const Welcome = () => {
   const { currentAccount, connectWallet, handleChange, sendTransaction, formData, isLoading,userDetails,setformData } = useContext(TransactionContext);
 
   useEffect(() => {
+    console.log(!!userDetails);
    if(!!userDetails?.name){
     setformData({...formData,name: userDetails?.name, dateOfBirth: userDetails?.dateOfBirth});
    }
-  }, [])
+  }, [userDetails?.name])
   
 
   const handleSubmit = (e) => {
