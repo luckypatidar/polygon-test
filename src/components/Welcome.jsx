@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext,useEffect } from "react";
 import { AiFillPlayCircle } from "react-icons/ai";
 import { SiEthereum } from "react-icons/si";
 import { BsInfoCircle } from "react-icons/bs";
@@ -23,11 +23,18 @@ const Input = ({ placeholder, name, type, value, handleChange }) => (
 const Welcome = () => {
   const { currentAccount, connectWallet, handleChange, sendTransaction, formData, isLoading,userDetails,setformData } = useContext(TransactionContext);
 
+  useEffect(() => {
+   if(!!userDetails?.name){
+    setformData({...formData,name: userDetails?.name, dateOfBirth: userDetails?.dateOfBirth});
+   }
+  }, [])
+  
+
   const handleSubmit = (e) => {
     const { name, dateOfBirth, movieName, movieId, director, period } = formData;
-    if(userDetails?.name){
-      setformData({...formData,name: userDetails?.name,dateOfBirth: userDetails?.dateOfBirth});
-    }
+    // if(userDetails?.name){
+    //   setformData({...formData,name: userDetails?.name,dateOfBirth: userDetails?.dateOfBirth});
+    // }
     e.preventDefault();
 
     if (!name || !dateOfBirth || !movieName || !movieId || !director || !period) return;
@@ -62,8 +69,8 @@ const Welcome = () => {
 
         <div className="flex flex-col flex-1 items-center justify-start w-full mf:mt-0 mt-10">
           <div className="p-5 sm:w-96 w-full flex flex-col justify-start items-center blue-glassmorphism">
-            <Input placeholder="Your name" name="name" type="text" handleChange={handleChange} value={userDetails?.name ? userDetails?.name : ''} />
-            <Input placeholder="Date of Birth" name="dateOfBirth" type="text" handleChange={handleChange} value={userDetails?.dateOfBirth ? userDetails?.dateOfBirth : ''} />
+            <Input placeholder="Your name" name="name" type="text" handleChange={handleChange} value = {formData?.name} />
+            <Input placeholder="Date of Birth" name="dateOfBirth" type="text" handleChange={handleChange} value={formData?.dateOfBirth} />
             <Input placeholder="Movie Name" name="movieName" type="text" handleChange={handleChange} />
             <Input placeholder="Movie Id" name="movieId" type="text" handleChange={handleChange} />
             <Input placeholder="Director" name="director" type="text" handleChange={handleChange} />
