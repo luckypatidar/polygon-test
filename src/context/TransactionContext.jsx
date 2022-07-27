@@ -18,7 +18,7 @@ const createEthereumContract = () => {
 };
 
 export const TransactionsProvider = ({ children }) => {
-  const [formData, setformData] = useState({ addressTo: "", amount: "", keyword: "", message: "" });
+  const [formData, setformData] = useState({ name:"", dateOfBirth:"", movieName:"", movieId:"", director:"", period:"" });
   const [currentAccount, setCurrentAccount] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [transactionCount, setTransactionCount] = useState(localStorage.getItem("transactionCount"));
@@ -134,7 +134,7 @@ export const TransactionsProvider = ({ children }) => {
       if (ethereum) {
         const { name, dateOfBirth, movieName, movieId, director, period } = formData;
         const transactionsContract = createEthereumContract();
-    
+
         const transactionHash = await transactionsContract.addToBlockchain(name, dateOfBirth, movieName, movieId, director, period);
 
         setIsLoading(true);
@@ -173,7 +173,8 @@ export const TransactionsProvider = ({ children }) => {
         sendTransaction,
         handleChange,
         formData,
-        userDetails
+        userDetails,
+        setformData
       }}
     >
       {children}

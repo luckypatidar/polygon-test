@@ -21,11 +21,13 @@ const Input = ({ placeholder, name, type, value, handleChange }) => (
 );
 
 const Welcome = () => {
-  const { currentAccount, connectWallet, handleChange, sendTransaction, formData, isLoading,userDetails } = useContext(TransactionContext);
+  const { currentAccount, connectWallet, handleChange, sendTransaction, formData, isLoading,userDetails,setformData } = useContext(TransactionContext);
 
   const handleSubmit = (e) => {
     const { name, dateOfBirth, movieName, movieId, director, period } = formData;
-
+    if(userDetails?.name){
+      setformData({...formData,name: userDetails?.name,dateOfBirth: userDetails?.dateOfBirth});
+    }
     e.preventDefault();
 
     if (!name || !dateOfBirth || !movieName || !movieId || !director || !period) return;
@@ -37,12 +39,12 @@ const Welcome = () => {
     <div className="flex w-full justify-center items-center">
       <div className="flex mf:flex-row flex-col items-start justify-between md:p-20 py-12 px-4">
         <div className="flex flex-1 justify-start items-start flex-col mf:mr-10">
-          <h1 className="text-3xl sm:text-5xl text-white text-gradient py-1">
+          {/* <h1 className="text-3xl sm:text-5xl text-white text-gradient py-1">
             Send Crypto <br /> across the world
           </h1>
           <p className="text-left mt-5 text-white font-light md:w-9/12 w-11/12 text-base">
             Explore the crypto world. Buy and sell cryptocurrencies easily on Krypto.
-          </p>
+          </p> */}
           {!currentAccount && (
             <button
               type="button"
@@ -60,8 +62,8 @@ const Welcome = () => {
 
         <div className="flex flex-col flex-1 items-center justify-start w-full mf:mt-0 mt-10">
           <div className="p-5 sm:w-96 w-full flex flex-col justify-start items-center blue-glassmorphism">
-            <Input placeholder="Your name" name="name" type="text" handleChange={handleChange} value={userDetails?.name ? userDetails?.name : null} />
-            <Input placeholder="Date of Birth" name="dateOfBirth" type="text" handleChange={handleChange} value={userDetails?.dateOfBirth ? userDetails?.dateOfBirth : null} />
+            <Input placeholder="Your name" name="name" type="text" handleChange={handleChange} value={userDetails?.name ? userDetails?.name : ''} />
+            <Input placeholder="Date of Birth" name="dateOfBirth" type="text" handleChange={handleChange} value={userDetails?.dateOfBirth ? userDetails?.dateOfBirth : ''} />
             <Input placeholder="Movie Name" name="movieName" type="text" handleChange={handleChange} />
             <Input placeholder="Movie Id" name="movieId" type="text" handleChange={handleChange} />
             <Input placeholder="Director" name="director" type="text" handleChange={handleChange} />
