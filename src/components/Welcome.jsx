@@ -52,6 +52,7 @@ const Welcome = () => {
           <p className="text-left mt-5 text-white font-light md:w-9/12 w-11/12 text-base">
             Explore the crypto world. Buy and sell cryptocurrencies easily on Krypto.
           </p> */}
+          
           {!currentAccount && (
             <button
               type="button"
@@ -64,6 +65,14 @@ const Welcome = () => {
               </p>
             </button>
           )}
+
+          {
+            currentAccount && (
+              <p className="text-left mt-5 text-white font-light md:w-9/12 w-11/12 text-base">
+              {currentAccount}
+            </p>
+            )
+          }
 
         </div>
 
